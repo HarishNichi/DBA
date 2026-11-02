@@ -192,10 +192,7 @@ export default function Academy({ path = [] }) {
       </aside>
       <div className="main-area">
         <header className="topbar">
-          <div style={{ alignItems: "center", display: "flex", gap: 10 }}>
-            <button className="icon-button mobile-menu" aria-label="Open menu" onClick={() => setMenuOpen(true)}><Menu size={17} /></button>
-            <span className="crumbs">Academy <ChevronRight size={12} style={{ verticalAlign: "middle" }} /> <span style={{ textTransform: "capitalize" }}>{titleForRoute}</span></span>
-          </div>
+          <button className="icon-button mobile-menu" aria-label="Open menu" onClick={() => setMenuOpen(true)}><Menu size={17} /></button>
           <div className="top-actions">
             <div className="search-box"><Search size={14} color="#9aa3b2" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search lessons, labs..." aria-label="Search lessons and labs" /></div>
             <button className="icon-button" aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"} title={theme === "light" ? "Switch to dark theme" : "Switch to light theme"} onClick={() => setTheme(theme === "light" ? "dark" : "light")}>{theme === "light" ? <Moon size={15} /> : <Sun size={15} />}</button>
@@ -207,6 +204,10 @@ export default function Academy({ path = [] }) {
           </div>}
         </header>
         <main className="main-content">
+          <nav className="crumbs breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Academy</Link><ChevronRight size={12} aria-hidden="true" />
+            <span style={{ textTransform: "capitalize" }}>{titleForRoute}</span>
+          </nav>
           {storageError && <div className="callout warning" role="status">{storageError}</div>}
           {toast && <div className="callout" role="status">{toast}</div>}
           {chapter ? <ChapterPage chapter={chapter} state={state} onDone={() => chapterDone(chapter.id)} onBookmark={() => bookmark(chapter.id)} onNote={(value) => saveNote(`chapter-${chapter.id}`, value)} onNotice={setNotice} onQuiz={(correct) => markQuiz(`chapter-${chapter.id}`, correct)} /> :
